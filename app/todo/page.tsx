@@ -65,46 +65,51 @@ export default function TodoPage() {
           </div>
         </header>
 
-        <div className="mt-6 flex gap-3 flex-wrap items-center">
-          <label className="sr-only">新しいタスク</label>
-          <input
-            className="flex-1 min-w-0 rounded-xl border border-gray-200 dark:border-slate-700 bg-white dark:bg-slate-800 px-4 py-2 text-base md:text-sm text-gray-900 dark:text-gray-100 focus:outline-none focus:ring-2 focus:ring-indigo-500 transition"
-            value={title}
-            onChange={(e) => setTitle(e.target.value)}
-            onCompositionStart={() => setIsComposing(true)}
-            onCompositionEnd={() => setIsComposing(false)}
-            onKeyDown={(e) => {
-              if (e.key === "Enter") {
-                // IME の確定（composition）中は無視する
-                if (isComposing) return;
-                e.preventDefault();
-                addTodo();
-              }
-            }}
-            placeholder="何をする？（例: 買い物）"
-            aria-label="新しいタスク"
-          />
-          <button
-            type="button"
-            onClick={addTodo}
-            className="flex-shrink-0 rounded-xl bg-indigo-600 text-white px-4 py-2 text-sm font-medium hover:bg-indigo-500 focus:outline-none focus:ring-2 focus:ring-indigo-400 transition"
-          >
-            追加
-          </button>
-          <button
-            type="button"
-            onClick={() => deleteTodo(taskIds)}
-            className="flex-shrink-0 rounded-xl bg-red-600 text-white px-4 py-2 text-sm font-medium hover:bg-red-500 focus:outline-none focus:ring-2 focus:ring-red-400 transition"
-          >
-            選択分削除
-          </button>
-          <button
-            type="button"
-            onClick={() => deleteTodo(allTaskIds)}
-            className="flex-shrink-0 rounded-xl bg-red-600 text-white px-4 py-2 text-sm font-medium hover:bg-red-500 focus:outline-none focus:ring-2 focus:ring-red-400 transition"
-          >
-            全て削除
-          </button>
+        <div className="mt-6 flex flex-col md:flex-row gap-3">
+          <div className="flex-1">
+            <label className="sr-only">新しいタスク</label>
+            <input
+              className="w-full min-w-0 rounded-xl border border-gray-200 dark:border-slate-700 bg-white dark:bg-slate-800 px-4 py-2 text-base md:text-sm text-gray-900 dark:text-gray-100 focus:outline-none focus:ring-2 focus:ring-indigo-500 transition"
+              value={title}
+              onChange={(e) => setTitle(e.target.value)}
+              onCompositionStart={() => setIsComposing(true)}
+              onCompositionEnd={() => setIsComposing(false)}
+              onKeyDown={(e) => {
+                if (e.key === "Enter") {
+                  // IME の確定（composition）中は無視する
+                  if (isComposing) return;
+                  e.preventDefault();
+                  addTodo();
+                }
+              }}
+              placeholder="何をする？（例: 買い物）"
+              aria-label="新しいタスク"
+            />
+          </div>
+
+          <div className="mt-3 flex w-full gap-3 md:mt-0 md:w-auto">
+            <button
+              type="button"
+              onClick={addTodo}
+              className="flex-1 md:flex-initial rounded-xl bg-indigo-600 text-white px-4 py-2 text-sm font-medium hover:bg-indigo-500 focus:outline-none focus:ring-2 focus:ring-indigo-400 transition"
+            >
+              追加
+            </button>
+            <button
+              type="button"
+              onClick={() => deleteTodo(taskIds)}
+              className="flex-1 md:flex-initial rounded-xl bg-red-600 text-white px-4 py-2 text-sm font-medium hover:bg-red-500 focus:outline-none focus:ring-2 focus:ring-red-400 transition"
+            >
+              選択分削除
+            </button>
+            <button
+              type="button"
+              onClick={() => deleteTodo(allTaskIds)}
+              className="flex-1 md:flex-initial rounded-xl bg-red-600 text-white px-4 py-2 text-sm font-medium hover:bg-red-500 focus:outline-none focus:ring-2 focus:ring-red-400 transition"
+            >
+              全て削除
+            </button>
+          </div>
         </div>
 
         <div className="mt-6">
