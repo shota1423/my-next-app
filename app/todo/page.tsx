@@ -53,7 +53,7 @@ export default function TodoPage() {
         <header className="flex items-start justify-between gap-4">
           <div>
             <h1 className="text-2xl font-semibold text-gray-900 dark:text-gray-100">Todo</h1>
-            <p className="mt-1 text-sm text-gray-500 dark:text-gray-400">シンプルで気持ち良いUXにリデザインしました</p>
+            {/* <p className="mt-1 text-sm text-gray-500 dark:text-gray-400">シンプルで気持ち良いUXにリデザインしました</p> */}
           </div>
           <div className="text-right text-sm text-gray-500 dark:text-gray-400">{todos.length} items</div>
         </header>
