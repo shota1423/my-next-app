@@ -65,10 +65,10 @@ export default function TodoPage() {
           </div>
         </header>
 
-        <div className="mt-6 flex gap-3">
+        <div className="mt-6 flex gap-3 flex-wrap items-center">
           <label className="sr-only">新しいタスク</label>
           <input
-            className="flex-1 rounded-xl border border-gray-200 dark:border-slate-700 bg-white dark:bg-slate-800 px-4 py-2 text-base md:text-sm text-gray-900 dark:text-gray-100 focus:outline-none focus:ring-2 focus:ring-indigo-500 transition"
+            className="flex-1 min-w-0 rounded-xl border border-gray-200 dark:border-slate-700 bg-white dark:bg-slate-800 px-4 py-2 text-base md:text-sm text-gray-900 dark:text-gray-100 focus:outline-none focus:ring-2 focus:ring-indigo-500 transition"
             value={title}
             onChange={(e) => setTitle(e.target.value)}
             onCompositionStart={() => setIsComposing(true)}
@@ -87,21 +87,21 @@ export default function TodoPage() {
           <button
             type="button"
             onClick={addTodo}
-            className="rounded-xl bg-indigo-600 text-white px-4 py-2 text-sm font-medium hover:bg-indigo-500 focus:outline-none focus:ring-2 focus:ring-indigo-400 transition"
+            className="flex-shrink-0 rounded-xl bg-indigo-600 text-white px-4 py-2 text-sm font-medium hover:bg-indigo-500 focus:outline-none focus:ring-2 focus:ring-indigo-400 transition"
           >
             追加
           </button>
           <button
             type="button"
             onClick={() => deleteTodo(taskIds)}
-            className="rounded-xl bg-red-600 text-white px-4 py-2 text-sm font-medium hover:bg-red-500 focus:outline-none focus:ring-2 focus:ring-red-400 transition"
+            className="flex-shrink-0 rounded-xl bg-red-600 text-white px-4 py-2 text-sm font-medium hover:bg-red-500 focus:outline-none focus:ring-2 focus:ring-red-400 transition"
           >
             選択分削除
           </button>
           <button
             type="button"
             onClick={() => deleteTodo(allTaskIds)}
-            className="rounded-xl bg-red-600 text-white px-4 py-2 text-sm font-medium hover:bg-red-500 focus:outline-none focus:ring-2 focus:ring-red-400 transition"
+            className="flex-shrink-0 rounded-xl bg-red-600 text-white px-4 py-2 text-sm font-medium hover:bg-red-500 focus:outline-none focus:ring-2 focus:ring-red-400 transition"
           >
             全て削除
           </button>
