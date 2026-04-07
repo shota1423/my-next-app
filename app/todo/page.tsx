@@ -48,8 +48,8 @@ export default function TodoPage() {
   };
 
   return (
-    <main className="min-h-screen bg-gray-50 dark:bg-[#071023] flex items-center justify-center p-6">
-      <section className="w-full max-w-2xl bg-white dark:bg-slate-900 rounded-2xl shadow-lg ring-1 ring-black/5 dark:ring-white/5 p-6">
+    <main className="min-h-screen bg-gray-50 dark:bg-[#071023] flex items-start sm:items-center sm:justify-center p-4">
+      <section className="w-full max-w-2xl bg-white dark:bg-slate-900 rounded-2xl shadow-lg ring-1 ring-black/5 dark:ring-white/5 p-6 max-h-[calc(100dvh-3.5rem)] overflow-auto" style={{ WebkitOverflowScrolling: 'touch' }}>
         <header className="flex items-start justify-between gap-4">
           <div>
             <h1 className="text-2xl font-semibold text-gray-900 dark:text-gray-100">Todo</h1>
@@ -62,6 +62,8 @@ export default function TodoPage() {
           <label className="sr-only">新しいタスク</label>
           <input
             className="flex-1 rounded-xl border border-gray-200 dark:border-slate-700 bg-white dark:bg-slate-800 px-4 py-2 text-sm text-gray-900 dark:text-gray-100 focus:outline-none focus:ring-2 focus:ring-indigo-500 transition"
+            inputMode="text"
+            enterKeyHint="done"
             value={title}
             onChange={(e) => setTitle(e.target.value)}
             placeholder="何をする？（例: 買い物）"
