@@ -16,7 +16,9 @@ export default function TodoPage() {
   });
 
   const [title, setTitle] = useState("");
+  const [isComposing, setIsComposing] = useState(false);
   const [taskIds, setTaskIds] = useState<number[]>([]);
+  const [allTaskIds, setAllTaskIds] = useState<number[]>([]);
 
   useEffect(() => {
     localStorage.setItem("todos", JSON.stringify(todos));
@@ -26,6 +28,7 @@ export default function TodoPage() {
     if (!title.trim()) return;
     const newTodo: Todo = { id: Date.now(), title, completed: false };
     setTodos((prev) => [...prev, newTodo]);
+    setAllTaskIds((prev) => [...prev, newTodo.id]);
     setTitle("");
   };
 
@@ -52,10 +55,14 @@ export default function TodoPage() {
       <section className="w-full max-w-2xl bg-white dark:bg-slate-900 rounded-2xl shadow-lg ring-1 ring-black/5 dark:ring-white/5 p-6">
         <header className="flex items-start justify-between gap-4">
           <div>
-            <h1 className="text-2xl font-semibold text-gray-900 dark:text-gray-100">Todo</h1>
+            <h1 className="text-2xl font-semibold text-gray-900 dark:text-gray-100">
+              Todo
+            </h1>
             {/* <p className="mt-1 text-sm text-gray-500 dark:text-gray-400">シンプルで気持ち良いUXにリデザインしました</p> */}
           </div>
-          <div className="text-right text-sm text-gray-500 dark:text-gray-400">{todos.length} items</div>
+          <div className="text-right text-sm text-gray-500 dark:text-gray-400">
+            {todos.length} items
+          </div>
         </header>
 
         <div className="mt-6 flex gap-3">
@@ -64,6 +71,16 @@ export default function TodoPage() {
             className="flex-1 rounded-xl border border-gray-200 dark:border-slate-700 bg-white dark:bg-slate-800 px-4 py-2 text-base md:text-sm text-gray-900 dark:text-gray-100 focus:outline-none focus:ring-2 focus:ring-indigo-500 transition"
             value={title}
             onChange={(e) => setTitle(e.target.value)}
+            onCompositionStart={() => setIsComposing(true)}
+            onCompositionEnd={() => setIsComposing(false)}
+            onKeyDown={(e) => {
+              if (e.key === "Enter") {
+                // IME の確定（composition）中は無視する
+                if (isComposing) return;
+                e.preventDefault();
+                addTodo();
+              }
+            }}
             placeholder="何をする？（例: 買い物）"
             aria-label="新しいタスク"
           />
@@ -80,6 +97,13 @@ export default function TodoPage() {
             className="rounded-xl bg-red-600 text-white px-4 py-2 text-sm font-medium hover:bg-red-500 focus:outline-none focus:ring-2 focus:ring-red-400 transition"
           >
             選択分削除
+          </button>
+          <button
+            type="button"
+            onClick={() => deleteTodo(allTaskIds)}
+            className="rounded-xl bg-red-600 text-white px-4 py-2 text-sm font-medium hover:bg-red-500 focus:outline-none focus:ring-2 focus:ring-red-400 transition"
+          >
+            全て削除
           </button>
         </div>
 
@@ -103,11 +127,15 @@ export default function TodoPage() {
                       className="h-5 w-5 rounded-md text-indigo-600 focus:ring-indigo-500 border-gray-300 dark:border-slate-600 bg-white dark:bg-slate-700"
                       aria-label={`完了: ${todo.title}`}
                     />
-                    <span className={`text-sm ${todo.completed ? 'text-gray-400 line-through' : 'text-gray-900 dark:text-gray-100'}`}>
+                    <span
+                      className={`text-sm ${todo.completed ? "text-gray-400 line-through" : "text-gray-900 dark:text-gray-100"}`}
+                    >
                       {todo.title}
                     </span>
                   </label>
-                  <div className="text-sm text-gray-400">{new Date(todo.id).toLocaleTimeString()}</div>
+                  <div className="text-sm text-gray-400">
+                    {new Date(todo.id).toLocaleTimeString()}
+                  </div>
                 </li>
               ))}
             </ul>
